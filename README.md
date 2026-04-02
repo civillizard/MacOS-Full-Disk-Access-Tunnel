@@ -21,7 +21,7 @@ The error is usually `unable to open database file` or just empty results. No cl
 
 ## The Fix
 
-Grant Full Disk Access to the interpreter binary itself — not to Terminal, not to an .app wrapper, not to the script file. The actual binary.
+Grant Full Disk Access to a copy of the interpreter binary. It becomes a tunnel — any script you run through it gets access, no per-script authorization needed. One binary, unlimited scripts.
 
 This repo automates the setup:
 
@@ -41,7 +41,7 @@ python3 read_safari_history.py
 ~/.local/bin/fda-python3 read_safari_history.py
 ```
 
-Works with any interpreter — Python, Node.js, Ruby, Perl, or any Mach-O binary.
+Works with any interpreter — Python, Node.js, Ruby, Perl, or any Mach-O binary. Grant FDA once, run any script through it.
 
 ## What Data is Protected
 
@@ -271,7 +271,7 @@ A: You can, but the Cellar path includes the version number (e.g., `/opt/homebre
 A: Yes. Homebrew paths differ (`/usr/local/` instead of `/opt/homebrew/`), but the setup script handles both.
 
 **Q: Is this a security risk?**
-A: It's the same level of access Terminal.app has. The binary can only read files your user account owns — it doesn't bypass file permissions or give root access. You're choosing to let a specific binary read your own data.
+A: It's the same level of access Terminal.app already has. The binary can only read files your user account owns — it doesn't bypass file permissions or give root access. You're choosing to let a specific binary read your own data. Any script run through it gets the same access — that's the tunnel.
 
 **Q: Does this survive macOS updates?**
 A: The binary copy survives. But major macOS updates sometimes reset TCC grants. If it stops working after an OS update, re-add the binary to the FDA list in System Settings.

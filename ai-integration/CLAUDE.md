@@ -4,7 +4,7 @@
 
 macOS TCC (Transparency, Consent, and Control) blocks launchd and cron processes from reading protected user data — Safari history, cookies, Mail, Messages, and more. Terminal.app has Full Disk Access, but launchd jobs don't inherit it.
 
-**FDA tunnel** = a copy of an interpreter binary (Python, Node, Ruby, etc.) at a stable path, with Full Disk Access granted in System Settings. Scripts run through this binary can read TCC-protected paths.
+**FDA tunnel** = a copy of an interpreter binary (Python, Node, Ruby, etc.) at a stable path, with Full Disk Access granted in System Settings. It acts as a tunnel — any script you run through it gets access to TCC-protected paths, no per-script authorization needed.
 
 ## When to use
 

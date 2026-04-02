@@ -6,7 +6,7 @@ Paste the following into your `.github/copilot-instructions.md`:
 
 ## macOS FDA Tunnel
 
-On macOS, launchd and cron processes cannot read TCC-protected paths (Safari, Cookies, Mail, Messages). The workaround is an "FDA tunnel" — a copy of the interpreter binary with Full Disk Access granted.
+On macOS, launchd and cron processes cannot read TCC-protected paths (Safari, Cookies, Mail, Messages). The workaround is an "FDA tunnel" — a copy of the interpreter binary with Full Disk Access granted. Any script run through the tunnel binary gets access, no per-script authorization needed.
 
 FDA binaries live at `~/.local/bin/fda-<interpreter>`:
 - `fda-python3` — for Python scripts

@@ -11,7 +11,7 @@ When a script needs to read TCC-protected data (Safari history, cookies, Mail, M
 - Use `~/.local/bin/fda-python3` instead of `python3`
 - Use `~/.local/bin/fda-node` instead of `node`
 - Use `~/.local/bin/fda-ruby` instead of `ruby`
-- These are copies of the real binaries with Full Disk Access granted in System Settings
+- These are copies of the real binaries with Full Disk Access granted in System Settings — they act as tunnels, so any script run through them gets access without per-script authorization
 - FDA is path-based — never move or rename these binaries
 - Symlinks don't get FDA — must be an actual file copy
 - The `.app` wrapper approach does NOT work (child processes don't inherit FDA)
