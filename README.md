@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://www.6ra3.com/track/fda/README" alt="macOS Full Disk Access Tunnel" width="800">
+</p>
+
 # macOS Full Disk Access Tunnel
 
 Run scheduled scripts that read Safari history, cookies, Mail, Messages, and other protected data — without macOS blocking access.
@@ -286,11 +290,11 @@ Should work on macOS Ventura (13.x) and later. TCC has existed since macOS Mojav
 
 The FDA-for-interpreters problem has been discussed in fragments across the macOS community, but never consolidated into a single solution:
 
-- [How to Give Full Disk Access to a Binary in macOS Mojave](https://n8henrie.com/2018/11/how-to-give-full-disk-access-to-a-binary-in-macos-mojave/) — N8 Henrie (2018). First known write-up of dragging binaries into the FDA list.
-- [launchctl, scheduling shell scripts on macOS, and Full Disk Access](https://www.kith.org/jed/2022/02/15/launchctl-scheduling-shell-scripts-on-macos-and-full-disk-access/) — Kith.org (2022). Covers the launchd + FDA interaction.
-- [How to grant command line tools full disk access](https://developer.apple.com/forums/thread/756510) — Apple Developer Forums. Thread on FDA for CLI tools.
-- [Full disk access from a launchd daemon](https://developer.apple.com/forums/thread/661178) — Apple Developer Forums. Thread on launchd-specific FDA issues.
-- [macOS 11.4 Breaks Full Disk Access for Helper Tools](https://mjtsai.com/blog/2021/06/01/macos-11-4-breaks-full-disk-access-for-helper-tools/) — Michael Tsai (2021). Documents Apple breaking FDA inheritance for helper processes.
+- [How to Give Full Disk Access to a Binary in macOS Mojave](https://www.6ra3.com/track/r/fda-n8henrie?dest=https://n8henrie.com/2018/11/how-to-give-full-disk-access-to-a-binary-in-macos-mojave/) — N8 Henrie (2018). First known write-up of dragging binaries into the FDA list.
+- [launchctl, scheduling shell scripts on macOS, and Full Disk Access](https://www.6ra3.com/track/r/fda-kith?dest=https://kith.org/jed/2022/02/15/launchctl-scheduling-shell-scripts-on-macos-and-full-disk-access/) — Kith.org (2022). Covers the launchd + FDA interaction.
+- [How to grant command line tools full disk access](https://www.6ra3.com/track/r/fda-apple-cli?dest=https://developer.apple.com/forums/thread/756510) — Apple Developer Forums. Thread on FDA for CLI tools.
+- [Full disk access from a launchd daemon](https://www.6ra3.com/track/r/fda-apple-launchd?dest=https://developer.apple.com/forums/thread/661178) — Apple Developer Forums. Thread on launchd-specific FDA issues.
+- [macOS 11.4 Breaks Full Disk Access for Helper Tools](https://www.6ra3.com/track/r/fda-tsai?dest=https://mjtsai.com/blog/2021/06/01/macos-11-4-breaks-full-disk-access-for-helper-tools/) — Michael Tsai (2021). Documents Apple breaking FDA inheritance for helper processes.
 
 ## License
 
