@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+    Example launchd plist using an FDA-tunneled Python binary.
+
+    This is the most common use case: a scheduled script that needs to read
+    Safari history, cookies, or other TCC-protected data.
+
+    Key line: ProgramArguments uses ~/.local/bin/fda-python3 instead of
+    /usr/bin/python3 or /opt/homebrew/bin/python3.
+
+    Install:
+        cp com.example.fda-script.plist ~/Library/LaunchAgents/
+        launchctl load ~/Library/LaunchAgents/com.example.fda-script.plist
+
+    Uninstall:
+        launchctl unload ~/Library/LaunchAgents/com.example.fda-script.plist
+        rm ~/Library/LaunchAgents/com.example.fda-script.plist
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.fda-script</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <!-- FDA-tunneled binary instead of regular python3 -->
+        <string>/Users/YOUR_USERNAME/.local/bin/fda-python3</string>
+        <string>/Users/YOUR_USERNAME/scripts/your_script.py</string>
+    </array>
+
+    <!-- Run daily at 03:00 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>3</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/YOUR_USERNAME/.local/log/fda-script.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/YOUR_USERNAME/.local/log/fda-script.err</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>

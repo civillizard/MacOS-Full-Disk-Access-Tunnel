@@ -1,0 +1,7 @@
+.DS_Store
+*.swp
+*.swo
+*~
+.ruff_cache/
+__pycache__/
+node_modules/
