@@ -295,3 +295,13 @@ The FDA-for-interpreters problem has been discussed in fragments across the macO
 ## License
 
 MIT
+
+## Author & Contact
+
+**Mamdoh AlOqiel** — Riyadh, Saudi Arabia
+
+- **Email:** [mao@6ra3.com](mailto:mao@6ra3.com)
+- **Issues & feedback:** [GitHub Issues](https://github.com/civillizard/MacOS-Full-Disk-Access-Tunnel/issues)
+- **Contributions:** Pull requests welcome — open an issue first to discuss bigger changes
+
+Open to collaboration on macOS automation, TCC/privacy tooling, and launchd/cron workflows.
