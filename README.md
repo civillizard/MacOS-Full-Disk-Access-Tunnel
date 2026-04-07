@@ -1,10 +1,34 @@
 # macOS Full Disk Access Tunnel
 
-Run scheduled scripts that read Safari history, cookies, Mail, Messages, and other protected data — without macOS blocking access.
+Grant Full Disk Access (FDA) to interpreter binaries so scheduled scripts can read TCC-protected data from launchd, cron, and SSH.
+
+## What This Does
+
+macOS TCC (Transparency, Consent, and Control) blocks access to Safari history, cookies, Mail, Messages, and other sensitive data when scripts run outside an interactive terminal. This is by design — Apple's security model requires explicit user consent per binary.
+
+**This tool uses Apple's official FDA mechanism** — the same way Terminal.app gets access. It copies your interpreter binary to a stable path and walks you through granting FDA in System Settings. No SIP bypass, no TCC database editing, no security frameworks disabled. The user must manually approve access through the macOS GUI.
+
+### Why not just grant FDA to the original interpreter?
+
+You can. But Homebrew paths include version numbers (`/opt/homebrew/Cellar/python@3.12/3.12.12_2/...`). A `brew upgrade` changes that path and silently breaks the FDA grant. The copy at `~/.local/bin/fda-python3` is version-independent.
+
+### Trade-offs
+
+| | |
+|---|---|
+| **Pro** | Any script run through the FDA binary gets access — no per-script authorization needed |
+| **Pro** | Stable path survives interpreter upgrades |
+| **Pro** | Uses Apple's official FDA mechanism — same as Terminal.app |
+| **Pro** | Original interpreter is untouched — no system binary modification |
+| **Con** | The FDA binary has broad read access to user data — any script run through it inherits this |
+| **Con** | macOS updates may reset TCC grants — you'll need to re-add the binary |
+| **Con** | The binary copy is a point-in-time snapshot — security patches to the interpreter don't auto-apply (re-run setup to update) |
+
+**This is a power-user tool.** It assumes you control which scripts run through the FDA binary. If you share your machine or run untrusted code, understand that anything executed via `fda-python3` can read your protected data.
 
 ## The Problem
 
-macOS TCC (Transparency, Consent, and Control) protects sensitive user data. When you open Terminal and run a Python script that reads `~/Library/Safari/History.db`, it works — because Terminal.app has Full Disk Access (FDA).
+When you run a Python script from Terminal that reads `~/Library/Safari/History.db`, it works — because Terminal.app has Full Disk Access.
 
 But the same script fails silently when run from:
 - **launchd** (scheduled tasks / LaunchAgents)
@@ -17,7 +41,7 @@ The error is usually `unable to open database file` or just empty results. No cl
 
 ## The Fix
 
-Grant Full Disk Access to a copy of the interpreter binary. It becomes a tunnel — any script you run through it gets access, no per-script authorization needed. One binary, unlimited scripts.
+Grant Full Disk Access to a copy of the interpreter binary. Any script you run through it gets access. One binary, unlimited scripts.
 
 This repo automates the setup:
 
@@ -211,21 +235,6 @@ macOS TCC checks the *process* binary, not the script being interpreted. Adding 
 
 Terminal.app has FDA, and interactive sessions inherit it. But launchd jobs are not children of Terminal — they're started by the system directly.
 
-## AI Tool Integration
-
-If you use AI coding tools (Claude Code, Cursor, GitHub Copilot), you can give them context about FDA tunnels so they write correct automation scripts.
-
-Drop-in instructions for each tool are in the [`ai-integration/`](ai-integration/) folder:
-
-| Tool | File | Where to put it |
-|------|------|-----------------|
-| **Claude Code** | [`CLAUDE.md`](ai-integration/CLAUDE.md) | Copy content into your project's `CLAUDE.md` or `~/.claude/CLAUDE.md` |
-| **Cursor** | [`cursor-rules.md`](ai-integration/cursor-rules.md) | Copy content into `.cursorrules` or `.cursor/rules/fda.md` |
-| **GitHub Copilot** | [`copilot-instructions.md`](ai-integration/copilot-instructions.md) | Copy content into `.github/copilot-instructions.md` |
-| **Other tools** | Use any of the above | The content is the same rules in different formats |
-
-The key rule for any AI tool: **when writing a script that reads TCC-protected data and will run from launchd/cron, use `~/.local/bin/fda-<interpreter>` instead of the regular binary path.**
-
 ## Examples
 
 | File | What it does |
@@ -291,6 +300,10 @@ The FDA-for-interpreters problem has been discussed in fragments across the macO
 - [How to grant command line tools full disk access](https://developer.apple.com/forums/thread/756510) — Apple Developer Forums. Thread on FDA for CLI tools.
 - [Full disk access from a launchd daemon](https://developer.apple.com/forums/thread/661178) — Apple Developer Forums. Thread on launchd-specific FDA issues.
 - [macOS 11.4 Breaks Full Disk Access for Helper Tools](https://mjtsai.com/blog/2021/06/01/macos-11-4-breaks-full-disk-access-for-helper-tools/) — Michael Tsai (2021). Documents Apple breaking FDA inheritance for helper processes.
+
+## AI Coding Tool Integration
+
+The [`ai-integration/`](ai-integration/) folder has drop-in config files for Claude Code, Cursor, and GitHub Copilot. These tell the tool to use `fda-<interpreter>` when generating scripts that read TCC-protected data from launchd/cron.
 
 ## License
 
