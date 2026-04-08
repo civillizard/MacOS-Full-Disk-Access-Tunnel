@@ -4,7 +4,16 @@ Grant Full Disk Access (FDA) to interpreter binaries so scheduled scripts can re
 
 ## What This Does
 
-macOS TCC (Transparency, Consent, and Control) blocks access to Safari history, cookies, Mail, Messages, and other sensitive data when scripts run outside an interactive terminal. This is by design — Apple's security model requires explicit user consent per binary.
+macOS TCC (Transparency, Consent, and Control) protects sensitive data — Safari history, cookies, Mail, Messages, contacts, calendars — and requires FDA to access it. FDA is granted to **binary paths**, not to scripts. This creates a gap for interpreter-based automation: when a Python, Node, or Ruby script needs TCC-protected data, there's no clean way to grant it access.
+
+The workarounds people reach for don't hold up:
+
+- **Grant FDA to the Homebrew interpreter** — works until `brew upgrade` changes the binary path and silently breaks the grant
+- **Grant FDA to `/usr/bin/python3`** — works until a macOS update replaces it
+- **Grant FDA to Terminal.app** — overly broad; gives *everything* in Terminal full access to protected data
+- **Wrap in an `.app` bundle** — doesn't work for launchd or cron (no GUI context)
+
+FDA Tunnel solves this: a stable, purpose-built binary copy at a fixed path that holds the FDA grant and delegates to your real interpreter. One binary, unlimited scripts, survives upgrades.
 
 **This tool uses Apple's official FDA mechanism** — the same way Terminal.app gets access. It copies your interpreter binary to a stable path and walks you through granting FDA in System Settings. No SIP bypass, no TCC database editing, no security frameworks disabled. The user must manually approve access through the macOS GUI.
 
