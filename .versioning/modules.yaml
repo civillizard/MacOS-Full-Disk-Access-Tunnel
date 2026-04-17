@@ -1,0 +1,9 @@
+# MacOS-Full-Disk-Access-Tunnel module registry for MAJOR.MINOR.SERIAL versioning.
+# See ~/claude-config/lib/versioning/bump.py
+
+project: MacOS-Full-Disk-Access-Tunnel
+
+modules:
+  ai_integration: ai-integration/
+  examples: examples/
+  setup: setup.sh
